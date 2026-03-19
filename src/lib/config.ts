@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Mustang Mathematics & AI Tutoring",
   tagline:
-    "Elite Near-Peer Mathematics Tutoring for La Cañada & San Marino",
+    "Elite Near-Peer Mathematics Tutoring for La Cañada, Crescenta Valley, and Pasadena",
   description:
     "Premium 1-on-1 math tutoring by a Cal Poly SLO Statistics major and St. Francis High School alumnus. AP Calculus, AP Statistics, Algebra, Geometry. Serving La Cañada Flintridge (91011) and San Marino (91108).",
   url: "https://mustang-math-tutoring.vercel.app",
