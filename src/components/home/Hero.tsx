@@ -119,7 +119,7 @@ export function Hero() {
             className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
           >
             <span className="bg-gradient-to-r from-white to-brand-cyan bg-clip-text text-transparent">
-              Your SFHS Math Advantage
+              Your Advanced Math Advantage
             </span>
             <br />
             <span className="text-white">Starts Here</span>
