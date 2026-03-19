@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   motion,
   useMotionValue,
@@ -206,19 +207,22 @@ export function Hero() {
             role="img"
             aria-label={`Photo placeholder for ${siteConfig.tutor.name}`}
           >
-            <div className="flex h-full flex-col items-center justify-center p-8 text-center">
-              <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full border-2 border-dashed border-white/20">
-                <span className="text-4xl text-white/30" aria-hidden="true">KC</span>
-              </div>
+            <Image
+              src="/images/kenny-headshot.jpg"
+              alt="Kenny Carpenter - Mathematics Tutor"
+              fill
+              sizes="(max-width: 768px) 100vw, 384px"
+              className="object-cover"
+              priority
+            />
+            {/* Name overlay at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 pt-16">
               <p className="text-lg font-semibold text-white">
                 {siteConfig.tutor.name}
               </p>
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="mt-0.5 text-sm text-slate-300">
                 {siteConfig.tutor.major} &middot;{" "}
                 {siteConfig.tutor.university}
-              </p>
-              <p className="mt-0.5 text-sm text-slate-500">
-                {siteConfig.tutor.highSchool} Alumnus
               </p>
             </div>
 

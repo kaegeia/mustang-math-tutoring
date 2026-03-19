@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Camera, GraduationCap, Award, School } from "lucide-react";
+import { GraduationCap, Award, School } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 
 const credentials = [
@@ -24,12 +25,14 @@ export function BioHero() {
             className="flex justify-center lg:justify-start"
           >
             <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-xl border border-white/15 bg-slate-100 shadow-card">
-              <div className="flex h-full flex-col items-center justify-center gap-4 text-slate-400">
-                <Camera className="h-12 w-12" />
-                <span className="text-sm font-medium">
-                  {siteConfig.tutor.name}&apos;s photo
-                </span>
-              </div>
+              <Image
+                src="/images/kenny-headshot.jpg"
+                alt="Kenny Carpenter - Mathematics Tutor"
+                fill
+                sizes="(max-width: 768px) 100vw, 384px"
+                className="object-cover"
+                priority
+              />
               {/* Accent glow */}
               <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-brand-blue/20 blur-[60px]" />
             </div>
