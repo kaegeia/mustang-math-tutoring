@@ -67,7 +67,7 @@ export function Navbar() {
           {/* Brand */}
           <Link
             href="/"
-            className="text-lg font-bold tracking-tight text-white transition-opacity hover:opacity-90"
+            className="text-lg font-semibold tracking-tight text-[#F8FAFC] transition-opacity hover:opacity-90"
           >
             {siteConfig.name}
           </Link>
@@ -81,18 +81,25 @@ export function Navbar() {
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   isActive(link.href)
-                    ? "text-white active-indicator"
-                    : "text-slate-300 hover:text-white"
+                    ? "text-white"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
                 {link.label}
+                {/* Blue dot indicator for active page — visible shape, not color-only */}
+                {isActive(link.href) && (
+                  <span
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-[#3B82F6]"
+                    aria-hidden="true"
+                  />
+                )}
               </Link>
             ))}
 
             {/* CTA */}
             <Link
               href="/book"
-              className="ml-4 inline-flex items-center rounded-lg bg-brand-blue px-5 py-2 text-sm font-semibold text-white glow-blue"
+              className="ml-4 inline-flex items-center rounded-lg bg-[#3B82F6] px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-[#4B93FF] hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]"
             >
               Book Now
             </Link>
@@ -101,7 +108,7 @@ export function Navbar() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-300 transition-colors hover:text-white md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-400 transition-colors hover:text-white md:hidden"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -114,7 +121,7 @@ export function Navbar() {
       {/* Spacer so content isn't hidden behind fixed nav */}
       <div className="h-16" />
 
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay menu — glass panel */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -126,59 +133,70 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={prefersReducedMotion ? noMotion : { duration: 0.2 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-brand-navy/98 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center md:hidden"
+            style={{
+              background: "rgba(15, 23, 42, 0.85)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+            }}
           >
-            <nav aria-label="Mobile navigation" className="flex flex-col items-center gap-2">
-              {navLinks.map((link, i) => (
+            <div className="glass-card p-8 w-[85vw] max-w-sm">
+              <nav aria-label="Mobile navigation" className="flex flex-col items-center gap-2">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: 12 }}
+                    transition={
+                      prefersReducedMotion
+                        ? noMotion
+                        : { delay: i * 0.1, duration: 0.3, ease: "easeOut" }
+                    }
+                    className="w-full"
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                      className={`flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-2xl font-semibold transition-colors ${
+                        isActive(link.href)
+                          ? "text-white"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      {link.label}
+                      {isActive(link.href) && (
+                        <span
+                          className="inline-block h-1.5 w-1.5 rounded-full bg-[#3B82F6]"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
+                ))}
+
+                {/* Mobile CTA */}
                 <motion.div
-                  key={link.href}
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={prefersReducedMotion ? undefined : { opacity: 0, y: 12 }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.95 }}
                   transition={
                     prefersReducedMotion
                       ? noMotion
-                      : { delay: i * 0.1, duration: 0.3, ease: "easeOut" }
+                      : { delay: navLinks.length * 0.1, duration: 0.35, ease: "easeOut" }
                   }
                 >
                   <Link
-                    href={link.href}
+                    href="/book"
                     onClick={() => setMobileOpen(false)}
-                    aria-current={isActive(link.href) ? "page" : undefined}
-                    className={`block rounded-lg px-6 py-3 text-2xl font-semibold transition-colors ${
-                      isActive(link.href)
-                        ? "text-brand-amber"
-                        : "text-slate-300 hover:text-white"
-                    }`}
+                    className="mt-6 inline-flex items-center rounded-lg bg-[#3B82F6] px-8 py-4 text-lg font-bold text-white transition-all hover:bg-[#4B93FF] hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]"
                   >
-                    {link.label}
-                    {isActive(link.href) && (
-                      <span className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-brand-amber" aria-hidden="true" />
-                    )}
+                    Book Now
                   </Link>
                 </motion.div>
-              ))}
-
-              {/* Mobile CTA */}
-              <motion.div
-                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.95 }}
-                transition={
-                  prefersReducedMotion
-                    ? noMotion
-                    : { delay: navLinks.length * 0.1, duration: 0.35, ease: "easeOut" }
-                }
-              >
-                <Link
-                  href="/book"
-                  onClick={() => setMobileOpen(false)}
-                  className="mt-6 inline-flex items-center rounded-xl bg-brand-blue px-8 py-4 text-lg font-bold text-white glow-blue"
-                >
-                  Book Now
-                </Link>
-              </motion.div>
-            </nav>
+              </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
