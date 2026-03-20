@@ -17,7 +17,7 @@ export function TrustBar() {
   const noMotion = { duration: 0 };
 
   return (
-    <section className="relative overflow-hidden bg-brand-navy/50 py-6" aria-label="Credentials">
+    <section className="relative overflow-hidden py-6" aria-label="Credentials" style={{ background: "linear-gradient(180deg, #0F172A 0%, #1E293B 100%)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 12 }}

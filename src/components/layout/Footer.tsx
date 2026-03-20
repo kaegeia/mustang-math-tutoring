@@ -19,32 +19,36 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto bg-brand-navy">
-      {/* Glass-border top accent */}
-      <div
-        className="h-px"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, #3B82F6, #22D3EE, #3B82F6, transparent)",
-        }}
-      />
-
+    <footer
+      className="mt-auto"
+      style={{
+        backgroundColor: "#0B1120",
+        borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+      }}
+    >
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* 4-column grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
           {/* Column 1: Brand */}
-          <div>
-            <Link href="/" className="text-lg font-bold text-white">
+          <div className="col-span-2 lg:col-span-1">
+            <Link href="/" className="text-lg font-semibold text-white">
               {siteConfig.name}
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">
               {siteConfig.tagline}
             </p>
+            {/* Decorative math symbol accent */}
+            <span
+              className="mt-3 block text-3xl font-mono text-[#3B82F6] opacity-10 select-none"
+              aria-hidden="true"
+            >
+              &int;
+            </span>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300">
               Quick Links
             </h3>
             <ul className="mt-3 space-y-2">
@@ -52,7 +56,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-400 transition-opacity hover:opacity-80 hover:underline hover:underline-offset-4"
+                    className="text-sm text-slate-400 transition-colors duration-300 hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -63,7 +67,7 @@ export function Footer() {
 
           {/* Column 3: Service Areas */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300">
               Service Areas
             </h3>
             <ul className="mt-3 space-y-2">
@@ -75,9 +79,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Social */}
+          {/* Column 4: Connect */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-300">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-300">
               Connect
             </h3>
             <div className="mt-3 flex gap-3">
@@ -88,7 +92,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-700 text-slate-400 transition-opacity hover:opacity-70"
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-slate-400 transition-all duration-300 hover:border-white/20 hover:bg-white/5 hover:text-white"
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
@@ -99,9 +103,9 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-slate-800">
+      <div style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}>
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xs text-slate-400">
+          <p className="text-center text-xs text-slate-500">
             &copy; 2026 {siteConfig.name}. All rights reserved. Built with care
             in La Ca&ntilde;ada.
           </p>

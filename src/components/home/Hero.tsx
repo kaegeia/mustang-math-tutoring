@@ -214,7 +214,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
+          transition={{ delay: 0.8 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
           aria-hidden="true"
         >
