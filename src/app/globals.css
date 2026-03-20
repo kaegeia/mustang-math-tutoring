@@ -393,24 +393,24 @@
     to { opacity: 1; transform: scale(1); }
   }
 
-  /* ─ Form inputs ─ */
+  /* ─ Form inputs (dark glassmorphism) ─ */
   .form-input {
     display: block;
     width: 100%;
     border-radius: 0.75rem;
-    border: 1px solid #e2e8f0;
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     padding: 0.625rem 0.875rem;
     font-size: 0.875rem;
-    color: #0F172A;
+    color: #F8FAFC;
     outline: none;
     transition: border-color 200ms ease, box-shadow 200ms ease;
   }
   .form-input::placeholder {
-    color: #94a3b8;
+    color: #64748B;
   }
   .form-input:focus {
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 }

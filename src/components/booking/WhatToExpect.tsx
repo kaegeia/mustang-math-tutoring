@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { CalendarCheck, MessageSquare, BookOpen, TrendingUp } from "lucide-react";
 
 const steps = [
@@ -31,40 +31,46 @@ const steps = [
 ];
 
 export function WhatToExpect() {
+  const reduced = useReducedMotion();
+  const noMotion = { duration: 0 };
+
   return (
-    <section className="py-20 sm:py-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <section className="section-dark py-20 sm:py-24">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <motion.h2
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduced ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-12 text-center text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl"
+          transition={reduced ? noMotion : { duration: 0.5, ease: "easeOut" }}
+          className="mb-12 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl"
         >
           What to Expect
         </motion.h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduced ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.12,
-                ease: "easeOut",
-              }}
-              className="glass-card flex flex-col items-center p-6 text-center"
+              transition={
+                reduced
+                  ? noMotion
+                  : { duration: 0.5, delay: i * 0.12, ease: "easeOut" }
+              }
+              className="glass-card-hover flex flex-col items-center p-6 text-center"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-blue/10">
-                <step.icon className="h-6 w-6 text-brand-blue" />
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#3B82F6]/10">
+                <step.icon className="h-6 w-6 text-[#3B82F6]" aria-hidden="true" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-brand-navy">
+              <span className="mb-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#3B82F6]/15 text-xs font-bold text-[#3B82F6]">
+                {i + 1}
+              </span>
+              <h3 className="mb-2 text-lg font-semibold text-white">
                 {step.title}
               </h3>
-              <p className="text-sm leading-relaxed text-slate-500">
+              <p className="text-sm leading-relaxed text-slate-400">
                 {step.description}
               </p>
             </motion.div>

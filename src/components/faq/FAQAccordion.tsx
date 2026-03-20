@@ -58,22 +58,27 @@ export function FAQAccordion() {
   const noMotion = { duration: 0 };
 
   return (
-    <section className="py-20 sm:py-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <section
+      className="relative overflow-hidden py-20 sm:py-24"
+      style={{
+        background: "linear-gradient(180deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)",
+      }}
+    >
+      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.h1
           initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? noMotion : { duration: 0.5, ease: "easeOut" }}
-          className="mb-4 text-center text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl"
+          className="mb-4 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl"
         >
           Frequently Asked{" "}
           <span className="text-gradient">Questions</span>
         </motion.h1>
-        <p className="mb-12 text-center text-lg text-slate-500">
+        <p className="mb-12 text-center text-lg text-slate-400">
           Everything parents and students need to know.
         </p>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             const panelId = `faq-panel-${i}`;
@@ -89,7 +94,12 @@ export function FAQAccordion() {
                     ? noMotion
                     : { duration: 0.4, delay: Math.min(i * 0.05, 0.3), ease: "easeOut" }
                 }
-                className="glass-card overflow-hidden"
+                className="glass-card-hover overflow-hidden"
+                style={
+                  isOpen
+                    ? { borderColor: "rgba(255, 255, 255, 0.15)" }
+                    : undefined
+                }
               >
                 <button
                   id={buttonId}
@@ -98,7 +108,11 @@ export function FAQAccordion() {
                   aria-controls={panelId}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                 >
-                  <span className="text-base font-semibold text-brand-navy">
+                  <span
+                    className={`text-base font-semibold transition-colors ${
+                      isOpen ? "text-white" : "text-slate-200"
+                    }`}
+                  >
                     {faq.q}
                   </span>
                   <motion.span
@@ -132,8 +146,11 @@ export function FAQAccordion() {
                       }
                       className="overflow-hidden"
                     >
-                      <div className="border-t border-slate-200/60 px-6 pb-5 pt-4">
-                        <p className="leading-relaxed text-slate-600">
+                      <div
+                        className="px-6 pb-5 pt-4"
+                        style={{ borderTop: "1px solid rgba(255, 255, 255, 0.06)" }}
+                      >
+                        <p className="leading-relaxed text-slate-300">
                           {faq.a}
                         </p>
                       </div>
