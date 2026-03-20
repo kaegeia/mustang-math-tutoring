@@ -7,7 +7,7 @@ import { CTASection } from "@/components/home/CTASection";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="bg-[#0F172A]">
       <Hero />
       <TrustBar />
       <ValueProps />

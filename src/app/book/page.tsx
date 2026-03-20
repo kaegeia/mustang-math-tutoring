@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function BookPage() {
   return (
-    <main>
+    <main className="bg-[#0F172A]">
       <GHLCalendarEmbed />
       <WhatToExpect />
       <ConsultationForm />

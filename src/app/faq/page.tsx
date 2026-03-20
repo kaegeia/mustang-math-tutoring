@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function FAQPage() {
   return (
-    <main>
+    <main className="bg-[#0F172A]">
       <FAQAccordion />
     </main>
   );

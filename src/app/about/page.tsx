@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main>
+    <main className="bg-[#0F172A]">
       <BioHero />
       <AcademicTimeline />
     </main>

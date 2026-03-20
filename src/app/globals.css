@@ -22,12 +22,21 @@
   --color-brand-slate: #F1F5F9;
 
   /* Shadow tokens */
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --shadow-glass-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
-  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.35);
-  --shadow-glow-amber: 0 0 20px rgba(245, 158, 11, 0.35);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glass-lg: 0 16px 48px rgba(0, 0, 0, 0.2);
+  --shadow-glow-blue: 0 0 40px rgba(59, 130, 246, 0.15);
+  --shadow-glow-amber: 0 0 40px rgba(245, 158, 11, 0.15);
+  --shadow-glow-cyan: 0 0 40px rgba(34, 211, 238, 0.15);
   --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.08);
   --shadow-card-hover: 0 8px 32px rgba(15, 23, 42, 0.12);
+
+  /* Backdrop blur */
+  --backdrop-blur-xs: 2px;
+
+  /* Background image gradients */
+  --background-image-glass-gradient: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  --background-image-hero-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0F172A 70%, #172554 100%);
+  --background-image-section-gradient: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
 
   /* shadcn token mappings */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -192,48 +201,90 @@
 
 /* ── Utility Classes ── */
 @layer utilities {
-  /* ─ Glassmorphism (standard) ─ */
+  /* ─ Glassmorphism (standard — dark-first) ─ */
   .glass {
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  }
-  .dark .glass {
-    background: rgba(15, 23, 42, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* ─ Glass Card (premium — for pricing & credential sections) ─ */
+  /* ─ Glass Card (base) ─ */
   .glass-card {
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 1rem;
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
   }
-  .glass-card:hover {
+
+  /* ─ Glass Card with hover effect ─ */
+  .glass-card-hover {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+  }
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
     transform: translateY(-2px);
-    box-shadow:
-      0 16px 48px rgba(0, 0, 0, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
   }
-  .dark .glass-card {
-    background: rgba(30, 41, 59, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* ─ Tinted Glass Cards ─ */
+  .glass-card-blue {
+    background: rgba(59, 130, 246, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(59, 130, 246, 0.2);
+    border-radius: 14px;
   }
-  .dark .glass-card:hover {
-    box-shadow:
-      0 16px 48px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  .glass-card-amber {
+    background: rgba(245, 158, 11, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(245, 158, 11, 0.2);
+    border-radius: 14px;
+  }
+
+  .glass-card-cyan {
+    background: rgba(34, 211, 238, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 0.5px solid rgba(34, 211, 238, 0.2);
+    border-radius: 14px;
+  }
+
+  /* ─ Ambient Glow (decorative background blobs) ─ */
+  .ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(60px);
+  }
+
+  /* ─ Math Symbols Background (subtle watermark) ─ */
+  .math-symbols-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.04;
+    font-size: 64px;
+    line-height: 1.2;
+    color: #3B82F6;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ─ Dark Section Wrapper ─ */
+  .section-dark {
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    position: relative;
+    overflow: hidden;
   }
 
   /* ─ Glass Navbar (frosted nav) ─ */

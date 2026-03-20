@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <main>
+    <main className="bg-[#0F172A]">
       <PricingCards />
       <PackageCTA />
       <ComparisonTable />
