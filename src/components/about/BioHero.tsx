@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap, Award, School } from "lucide-react";
 import { siteConfig } from "@/lib/config";
 
@@ -10,46 +10,100 @@ const credentials = [
   { icon: Award, label: `AP Calc AB: ${siteConfig.tutor.apScores.calcAB}` },
   { icon: Award, label: `AP Calc BC: ${siteConfig.tutor.apScores.calcBC}` },
   { icon: School, label: "SFHS \u201923" },
+  { icon: GraduationCap, label: "Statistics Major" },
 ];
 
 export function BioHero() {
+  const reduced = useReducedMotion();
+  const noMotion = { duration: 0 };
+
   return (
-    <section className="py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section
+      className="relative overflow-hidden py-20 sm:py-24"
+      style={{
+        background: "linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0F172A 100%)",
+      }}
+    >
+      {/* Ambient glow orbs */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div
+          className="ambient-glow"
+          style={{
+            width: "500px",
+            height: "500px",
+            top: "-10%",
+            left: "-5%",
+            background: "radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="ambient-glow"
+          style={{
+            width: "400px",
+            height: "400px",
+            bottom: "-15%",
+            right: "-5%",
+            background: "radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%)",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Photo placeholder */}
+          {/* Photo */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={reduced ? false : { opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={
+              reduced ? noMotion : { duration: 0.6, ease: "easeOut" }
+            }
             className="flex justify-center lg:justify-start"
           >
-            <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-xl border border-white/15 bg-slate-100 shadow-card">
-              <Image
-                src="/images/kenny-headshot.jpg"
-                alt="Kenny Carpenter - Mathematics Tutor"
-                fill
-                sizes="(max-width: 768px) 100vw, 384px"
-                className="object-cover"
-                priority
+            <div className="relative">
+              {/* Blue glow ring */}
+              <div
+                className="absolute -inset-3 rounded-2xl opacity-50"
+                style={{
+                  background: "radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)",
+                  filter: "blur(20px)",
+                }}
+                aria-hidden="true"
               />
-              {/* Accent glow */}
-              <div className="pointer-events-none absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-brand-blue/20 blur-[60px]" />
+              <div className="glass-card relative aspect-[3/4] w-full max-w-sm overflow-hidden">
+                <Image
+                  src="/images/kenny-headshot.jpg"
+                  alt="Kenny Carpenter - Mathematics Tutor"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 384px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </motion.div>
 
-          {/* Narrative */}
+          {/* Bio content */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={reduced ? false : { opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            transition={
+              reduced
+                ? noMotion
+                : { duration: 0.6, delay: 0.1, ease: "easeOut" }
+            }
           >
-            <h1 className="mb-6 text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl">
-              Meet{" "}
-              <span className="text-gradient">{siteConfig.tutor.name}</span>
+            <h1 className="mb-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              {siteConfig.tutor.name}
             </h1>
+            <p className="mb-6 text-lg text-slate-400">
+              {siteConfig.tutor.major} Major &middot;{" "}
+              {siteConfig.tutor.university} &middot; Near-Peer Math Tutor
+            </p>
 
-            <div className="space-y-4 text-lg leading-relaxed text-slate-600">
+            <div
+              className="space-y-4 text-base text-slate-300"
+              style={{ lineHeight: 1.7 }}
+            >
               <p>
                 I remember sitting in an AP Calc class at St.&nbsp;Francis,
                 staring at a related rates problem that felt impossible. Fast
@@ -79,16 +133,23 @@ export function BioHero() {
               {credentials.map((cred, i) => (
                 <motion.span
                   key={cred.label}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: 0.4 + i * 0.08,
-                    ease: "easeOut",
-                  }}
-                  className="glass-card inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-brand-navy"
+                  transition={
+                    reduced
+                      ? noMotion
+                      : {
+                          duration: 0.4,
+                          delay: 0.4 + i * 0.08,
+                          ease: "easeOut",
+                        }
+                  }
+                  className="glass-card inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-slate-200"
                 >
-                  <cred.icon className="h-4 w-4 shrink-0 text-brand-blue" />
+                  <cred.icon
+                    className="h-4 w-4 shrink-0 text-[#3B82F6]"
+                    aria-hidden="true"
+                  />
                   {cred.label}
                 </motion.span>
               ))}

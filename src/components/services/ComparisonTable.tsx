@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Check, X } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 type CellValue = boolean;
 
@@ -68,50 +67,53 @@ const competitors = [
 function CellIndicator({ value }: { value: boolean }) {
   if (value) {
     return (
-      <span className="inline-flex items-center gap-1 text-sm font-medium text-brand-blue">
-        <Check className="h-4 w-4" />
-        <span className="sr-only sm:not-sr-only">Yes</span>
+      <span className="inline-flex items-center gap-1 text-sm font-medium text-[#3B82F6]">
+        <span aria-hidden="true">&#x2726;</span> Yes
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 text-sm text-slate-400">
-      <X className="h-4 w-4" />
-      <span className="sr-only sm:not-sr-only">No</span>
-    </span>
+    <span className="text-sm text-slate-500">&mdash;</span>
   );
 }
 
 export function ComparisonTable() {
+  const reduced = useReducedMotion();
+  const noMotion = { duration: 0 };
+
   return (
-    <section className="py-20 sm:py-24">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <section className="section-dark py-20 sm:py-24">
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduced ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={reduced ? noMotion : { duration: 0.5, ease: "easeOut" }}
           className="mb-12 text-center"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             How We Compare
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-slate-500">
+          <p className="mx-auto mt-3 max-w-xl text-lg text-slate-400">
             See why personalized near-peer tutoring beats the alternatives.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={reduced ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-card"
+          transition={
+            reduced
+              ? noMotion
+              : { duration: 0.5, delay: 0.1, ease: "easeOut" }
+          }
+          className="glass-card overflow-x-auto"
         >
           <table className="w-full min-w-[600px] text-left">
             <thead>
-              <tr className="border-b border-slate-200 bg-brand-slate">
-                <th className="px-6 py-4 text-sm font-semibold text-brand-navy">
+              <tr className="bg-white/5">
+                <th className="px-6 py-4 text-sm font-semibold text-white">
                   Feature
                 </th>
                 {competitors.map((c) => (
@@ -119,8 +121,8 @@ export function ComparisonTable() {
                     key={c.key}
                     className={`px-4 py-4 text-center text-sm font-semibold ${
                       c.key === "kenny"
-                        ? "bg-brand-blue/5 text-brand-blue"
-                        : "text-slate-600"
+                        ? "bg-[#3B82F6]/10 text-[#3B82F6]"
+                        : "text-slate-400"
                     }`}
                   >
                     {c.label}
@@ -132,16 +134,24 @@ export function ComparisonTable() {
               {rows.map((row, i) => (
                 <tr
                   key={row.feature}
-                  className={i < rows.length - 1 ? "border-b border-slate-100" : ""}
+                  className={
+                    i < rows.length - 1
+                      ? "border-b border-white/5"
+                      : ""
+                  }
                 >
-                  <td className="px-6 py-4 text-sm font-medium text-brand-navy">
+                  <td className="px-6 py-4 text-sm font-medium text-slate-200">
                     {row.feature}
                   </td>
                   {competitors.map((c) => (
                     <td
                       key={c.key}
                       className={`px-4 py-4 text-center ${
-                        c.key === "kenny" ? "bg-brand-blue/5" : ""
+                        c.key === "kenny" ? "bg-[#3B82F6]/10" : ""
+                      } ${
+                        i % 2 === 1 && c.key !== "kenny"
+                          ? "bg-white/[0.02]"
+                          : ""
                       }`}
                     >
                       <CellIndicator value={row[c.key]} />
