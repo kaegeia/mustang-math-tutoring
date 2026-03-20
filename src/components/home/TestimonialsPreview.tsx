@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Star } from "lucide-react";
 
 const testimonials = [
   {
@@ -10,21 +9,18 @@ const testimonials = [
       "Kenny explained derivatives in a way that finally clicked for my daughter. Her grade went from a C+ to an A\u2013 in just six weeks. He knows exactly what SFHS teachers expect.",
     name: "Jennifer M.",
     detail: "Parent of 11th grader at SFHS",
-    stars: 5,
   },
   {
     quote:
       "Finding a tutor who actually took the same AP Calc class at the same school was a game-changer. Kenny remembers the exact problem sets and pacing, so he always knows what\u2019s coming next.",
     name: "David R.",
     detail: "Parent of 10th grader at SFHS",
-    stars: 5,
   },
   {
     quote:
       "My son was anxious about starting Algebra 2 this year. After just three sessions with Kenny he felt confident walking into class. Worth every penny.",
     name: "Maria L.",
     detail: "Parent of 9th grader at SFHS",
-    stars: 5,
   },
 ];
 
@@ -50,14 +46,19 @@ export function TestimonialsPreview() {
     : { duration: 0.4, ease: "easeInOut" as const };
 
   return (
-    <section className="py-20 sm:py-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <section
+      className="relative overflow-hidden py-20 sm:py-24"
+      style={{
+        background: "linear-gradient(180deg, #1E293B 0%, #0F172A 100%)",
+      }}
+    >
+      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={prefersReducedMotion ? noMotion : { duration: 0.5, ease: "easeOut" }}
-          className="mb-12 text-center text-3xl font-bold tracking-tight text-brand-navy sm:text-4xl"
+          className="mb-12 text-center text-3xl font-bold tracking-tight text-white sm:text-4xl"
         >
           What Parents Are Saying
         </motion.h2>
@@ -80,35 +81,30 @@ export function TestimonialsPreview() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
                 transition={cardTransition}
-                className="glass-card p-8 sm:p-10"
+                className="glass-card relative p-8 sm:p-10"
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`Testimonial ${active + 1} of ${testimonials.length}`}
               >
-                {/* Stars */}
-                <div className="mb-4 flex gap-1" aria-label={`${testimonials[active].stars} out of 5 stars`}>
-                  {Array.from({ length: testimonials[active].stars }).map(
-                    (_, i) => (
-                      <Star
-                        key={i}
-                        className="h-5 w-5 fill-brand-amber text-brand-amber"
-                        aria-hidden="true"
-                      />
-                    ),
-                  )}
-                </div>
+                {/* Decorative quotation mark */}
+                <span
+                  className="absolute top-4 left-6 text-4xl font-serif text-[#3B82F6] opacity-30 leading-none select-none"
+                  aria-hidden="true"
+                >
+                  &ldquo;
+                </span>
 
                 {/* Quote */}
-                <blockquote className="text-lg italic leading-relaxed text-slate-700">
+                <blockquote className="mt-4 text-lg italic leading-relaxed text-slate-200">
                   &ldquo;{testimonials[active].quote}&rdquo;
                 </blockquote>
 
                 {/* Attribution */}
                 <footer className="mt-6">
-                  <p className="font-semibold text-brand-navy">
+                  <p className="font-semibold text-white">
                     {testimonials[active].name}
                   </p>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-slate-400">
                     {testimonials[active].detail}
                   </p>
                 </footer>
@@ -117,7 +113,7 @@ export function TestimonialsPreview() {
           </div>
         </div>
 
-        {/* Dot navigation — 44px touch target via padding */}
+        {/* Dot navigation */}
         <div className="mt-6 flex justify-center gap-2" role="tablist" aria-label="Testimonial slides">
           {testimonials.map((_, i) => (
             <button
@@ -126,15 +122,13 @@ export function TestimonialsPreview() {
               onClick={() => setActive(i)}
               aria-selected={i === active}
               aria-label={`Show testimonial ${i + 1}`}
-              className={`flex h-11 items-center px-1 ${
-                i === active ? "" : ""
-              }`}
+              className="flex h-11 items-center px-1"
             >
               <span
                 className={`block h-2.5 rounded-full transition-all duration-300 ${
                   i === active
-                    ? "w-8 bg-brand-blue"
-                    : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                    ? "w-8 bg-[#3B82F6]"
+                    : "w-2.5 bg-white/20 hover:bg-white/40"
                 }`}
               />
             </button>

@@ -10,11 +10,34 @@ export function CTASection() {
   const noMotion = { duration: 0 };
 
   return (
-    <section className="relative overflow-hidden gradient-hero py-20 sm:py-28">
-      {/* Background accents */}
+    <section
+      className="relative overflow-hidden py-20 sm:py-28"
+      style={{
+        background: "linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #0F172A 70%, #172554 100%)",
+      }}
+    >
+      {/* Ambient glow orbs */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute left-1/4 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-brand-blue/20 blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 h-48 w-48 rounded-full bg-brand-cyan/15 blur-[80px]" />
+        <div
+          className="ambient-glow"
+          style={{
+            width: "500px",
+            height: "500px",
+            top: "-20%",
+            left: "20%",
+            background: "radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="ambient-glow"
+          style={{
+            width: "400px",
+            height: "400px",
+            bottom: "-15%",
+            right: "15%",
+            background: "radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%)",
+          }}
+        />
       </div>
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
@@ -32,7 +55,7 @@ export function CTASection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={reduced ? noMotion : { duration: 0.5, delay: 0.12, ease: "easeOut" }}
-          className="mx-auto mt-4 max-w-xl text-lg text-slate-300"
+          className="mx-auto mt-4 max-w-xl text-lg text-slate-400"
         >
           Book a free consultation with {siteConfig.tutor.name} and discover how
           near-peer tutoring can transform your understanding of math.
@@ -46,14 +69,14 @@ export function CTASection() {
         >
           <Link
             href="/book"
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-blue px-8 py-4 text-base font-semibold text-white glow-blue"
+            className="inline-flex items-center gap-2 rounded-lg bg-[#3B82F6] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-[#4B93FF] hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]"
           >
             Book a Free Session
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center rounded-xl border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
+            className="glass-card-hover inline-flex items-center px-8 py-4 text-base font-semibold text-slate-200 transition-colors hover:text-white"
           >
             View Services
           </Link>

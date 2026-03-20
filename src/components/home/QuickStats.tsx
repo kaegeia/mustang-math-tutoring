@@ -7,12 +7,13 @@ interface StatItem {
   target: number;
   suffix: string;
   label: string;
+  color: string;
 }
 
 const stats: StatItem[] = [
-  { target: 5, suffix: "", label: "AP Calc AB Score" },
-  { target: 3, suffix: "+", label: "Years Advanced STEM Study" },
-  { target: 100, suffix: "%", label: "Personalized 1-on-1 Attention" },
+  { target: 5, suffix: "", label: "AP Calc AB Score", color: "text-[#3B82F6]" },
+  { target: 3, suffix: "+", label: "Years Advanced STEM Study", color: "text-[#F59E0B]" },
+  { target: 100, suffix: "%", label: "Personalized 1-on-1 Attention", color: "text-[#22D3EE]" },
 ];
 
 function AnimatedCounter({
@@ -67,10 +68,10 @@ export function QuickStats() {
   const noMotion = { duration: 0 };
 
   return (
-    <section className="gradient-hero py-20 sm:py-24" aria-label="Key statistics">
+    <section className="section-dark py-20 sm:py-24" aria-label="Key statistics">
       <div
         ref={ref}
-        className="mx-auto grid max-w-4xl gap-8 px-4 sm:grid-cols-3 sm:px-6 lg:px-8"
+        className="relative z-10 mx-auto grid max-w-4xl gap-4 px-4 sm:grid-cols-3 sm:px-6 lg:px-8"
       >
         {stats.map((stat, i) => (
           <motion.div
@@ -83,9 +84,9 @@ export function QuickStats() {
                 ? noMotion
                 : { duration: 0.5, delay: i * 0.12, ease: "easeOut" }
             }
-            className="flex flex-col items-center text-center"
+            className="glass-card flex flex-col items-center p-6 text-center"
           >
-            <span className="text-5xl font-extrabold text-brand-blue sm:text-6xl">
+            <span className={`text-3xl font-bold sm:text-4xl ${stat.color}`}>
               <AnimatedCounter
                 target={stat.target}
                 suffix={stat.suffix}
@@ -93,7 +94,7 @@ export function QuickStats() {
                 instant={!!prefersReducedMotion}
               />
             </span>
-            <span className="mt-2 text-sm font-medium text-slate-400">
+            <span className="mt-2 text-sm text-slate-400">
               {stat.label}
             </span>
           </motion.div>
